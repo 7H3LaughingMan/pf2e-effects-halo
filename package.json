@@ -1,0 +1,12 @@
+{
+  "name": "pf2e-effects-halo",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "changelog": "changelog --format markdownlint --release --create"
+  },
+  "dependencies": {
+    "keep-a-changelog": "^2.5.3"
+  }
+}
