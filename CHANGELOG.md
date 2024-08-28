@@ -18,5 +18,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed PF2e Dorako UX, this module is always on when enabled.
 - Removed PF2e Dorako UI theme check, this module uses the default.
 
-[Unreleased]: https://example.com/compare/v6.0.0...HEAD
-[6.0.0]: https://example.com/releases/tag/v6.0.0
+[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/releases/tag/v6.0.0
