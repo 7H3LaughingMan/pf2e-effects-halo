@@ -236,43 +236,6 @@ const createRoundedEffectIcon = (effectIcon) => {
     return container;
 };
 
-function overrideTokenHud() {
-    const origRefreshEffects = Token.prototype._refreshEffects;
-    Token.prototype._refreshEffects = function (...args) {
-        if (this) {
-            origRefreshEffects.apply(this, args);
-            updateEffectScales(this);
-        }
-    };
-
-    Token.prototype._drawEffect = async function (...args) {
-        if (!this) {
-            return;
-        }
-        const src = args[0];
-        if (!src) return;
-
-        const fallbackEffectIcon = "icons/svg/hazard.svg";
-        const effectTextureCacheKey = src || fallbackEffectIcon;
-        let effectTexture = effectCache.loadTexture(effectTextureCacheKey);
-        let icon;
-        if (effectTexture) {
-            icon = new PIXI.Sprite(effectTexture);
-        } else {
-            const texture = await loadTexture(src, { fallback: fallbackEffectIcon });
-            const rawEffectIcon = new PIXI.Sprite(texture);
-
-            if (game.system.id === "pf2e" && src == game.settings.get("pf2e", "deathIcon")) {
-                return this.effects.addChild(rawEffectIcon);
-            }
-            effectTexture = effectCache.addToCache(effectTextureCacheKey, createRoundedEffectIcon(rawEffectIcon));
-            icon = new PIXI.Sprite(effectTexture);
-        }
-
-        return this.effects.addChild(icon);
-    };
-}
-
 Hooks.once("ready", () => {
     libWrapper.register("pf2e-effects-halo", "Token.prototype._refreshEffects", function (wrapped) {
         wrapped();
