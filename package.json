@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "changelog": "changelog --format markdownlint --release --create"
+    "changelog": "changelog --format markdownlint --create --release"
   },
   "dependencies": {
     "keep-a-changelog": "^2.5.3"
