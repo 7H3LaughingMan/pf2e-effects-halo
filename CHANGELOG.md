@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.0.0] - 2025-06-08
+
+Foundry VTT Version 13 Support
+
 ## [6.1.0] - 2024-08-30
 
 ### Changed
@@ -24,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed PF2e Dorako UX, this module is always on when enabled
 - Removed PF2e Dorako UI theme check, this module uses the default
 
-[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v6.1.0...HEAD
+[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v6.1.0...v7.0.0
 [6.1.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/releases/tag/v6.0.0

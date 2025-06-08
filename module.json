@@ -2,10 +2,11 @@
     "id": "pf2e-effects-halo",
     "title": "PF2e Effects Halo",
     "description": "This module arranges effect icons around a token, rather than putting them in columns on the token. Copied from PF2e Dorako UX.",
-    "version": "6.0.0",
+    "version": "7.0.0",
     "compatibility": {
-        "minimum": "12",
-        "verified": "12"
+        "minimum": "13",
+        "verified": "13",
+        "maximum": "13"
     },
     "authors": [
         {
