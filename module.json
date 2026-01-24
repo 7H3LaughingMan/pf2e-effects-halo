@@ -23,6 +23,10 @@
             {
                 "id": "pf2e",
                 "type": "system"
+            },
+            {
+                "id": "sf2e",
+                "type": "system"
             }
         ],
         "requires": [
