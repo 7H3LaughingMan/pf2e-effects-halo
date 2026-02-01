@@ -4,9 +4,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "changelog": "changelog --format markdownlint --create --release"
+    "changelog": "changelog --format markdownlint --create --release",
+    "configure": "node ./build/configure.js",
+    "launch": "node ./build/launch.js",
+    "link": "node ./build/link.js"
   },
-  "dependencies": {
-    "keep-a-changelog": "2.6.2"
+  "devDependencies": {
+    "js-yaml": "^4.1.1",
+    "keep-a-changelog": "^2.8.0",
+    "prompts": "^2.4.2",
+    "yargs": "^18.0.0"
   }
 }

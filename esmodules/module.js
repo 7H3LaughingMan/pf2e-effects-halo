@@ -255,9 +255,14 @@ Hooks.once("ready", () => {
             const texture = await loadTexture(src, { fallback: fallbackEffectIcon });
             const rawEffectIcon = new PIXI.Sprite(texture);
 
-            if (game.system.id === "pf2e" && src == game.settings.get("pf2e", "deathIcon")) {
+            if (game.system.id === "pf2e" && src === game.settings.get("pf2e", "deathIcon")) {
                 return this.effects.addChild(rawEffectIcon);
             }
+
+            if (game.system.id === "sf2e" && src === game.settings.get("sf2e", "deathIcon")) {
+                return this.effects.addChild(rawEffectIcon);
+            }
+
             effectTexture = effectCache.addToCache(effectTextureCacheKey, createRoundedEffectIcon(rawEffectIcon));
             icon = new PIXI.Sprite(effectTexture);
         }

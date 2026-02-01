@@ -1,1 +1,2 @@
-node_modules
+/build/pf2e-effects-halo.yml
+/node_modules/
