@@ -1,0 +1,17 @@
+{
+    "plugins": [
+        "prettier-plugin-organize-imports"
+    ],
+    "printWidth": 120,
+    "endOfLine": "lf",
+    "tabWidth": 4,
+    "trailingComma": "none",
+    "overrides": [
+        {
+            "files": "*.yml",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}

@@ -16,7 +16,7 @@
         }
     ],
     "esmodules": [
-        "esmodules/module.js"
+        "dist/pf2e-effects-halo.js"
     ],
     "relationships": {
         "systems": [

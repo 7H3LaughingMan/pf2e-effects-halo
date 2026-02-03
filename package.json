@@ -1,18 +1,37 @@
 {
   "name": "pf2e-effects-halo",
+  "author": "7H3LaughingMan",
+  "license": "MIT",
   "type": "module",
-  "version": "0.0.0",
-  "private": true,
   "scripts": {
+    "build": "tsc --noEmit && vite build",
     "changelog": "changelog --format markdownlint --create --release",
     "configure": "node ./build/configure.js",
+    "dev": "vite",
     "launch": "node ./build/launch.js",
-    "link": "node ./build/link.js"
+    "link": "node ./build/link.js",
+    "lint": "eslint src"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/js-yaml": "^4.0.9",
+    "@types/prompts": "^2.4.9",
+    "cmd-ts": "^0.14.3",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "js-yaml": "^4.1.1",
     "keep-a-changelog": "^2.8.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "prompts": "^2.4.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.54.0",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.0.5",
     "yargs": "^18.0.0"
+  },
+  "dependencies": {
+    "foundry-pf2e": "github:7H3LaughingMan/foundry-pf2e"
   }
 }
