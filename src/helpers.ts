@@ -93,6 +93,7 @@ function tokenInfo(token: TokenPF2e): TokenInfo {
     tokenRadius *= tokenEffectScale;
 
     if (token.hasDynamicRing) {
+        tokenRadius /= token.ring?.scaleCorrection ?? 1;
         tokenRadius *= token.ring?.textureScaleAdjustment ?? 1;
         if (!CONFIG.Token.ring.isGridFitMode) {
             tokenRadius /= token.ring?.subjectScaleAdjustment ?? 1;
