@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for flipped tokens
-    - Effects will no longer disappear if you use another module to flip a token
+  - Effects will no longer disappear if you use another module to flip a token
+  - Note, this module does not handle the flipping itself and you would need another module to handle it
 
 ## [7.2.1] - 2026-02-04
 
@@ -25,14 +26,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support for Dynamic Tokens
-    - PF2e Effects Halo will now "calculate" the size of the token and determine how many effect icons it can display around the token. This applies to every "row" of effects around the token meaning that more effects can be displayed on the 2nd "row" and even more on the 3rd "row".
+  - PF2e Effects Halo will now "calculate" the size of the token and determine how many effect icons it can display around the token. This applies to every "row" of effects around the token meaning that more effects can be displayed on the 2nd "row" and even more on the 3rd "row".
 - PF2e/SF2e Effect Colors
-    - By default the background/border of the effects will depend on which system you are using; however, this is configurable per user in the settings if you want to change the colors.
+  - By default the background/border of the effects will depend on which system you are using; however, this is configurable per user in the settings if you want to change the colors.
 - Option to increase the spacing of effects on the same row
 - Option to increase the spacing between rows
 - Option to increase the "scale of the halo
-    - What this setting does is increase the calculated radius of the tokens, so if you are using funky tokens that need more or less space between the token and the first row of effects you can use this setting.
-    - There is a "global" setting in the settings along with a setting stored on each actor, the actor settings can be accessed by opening the actor sheet you want to modify and clicking on the "magic sparkles" icon in the title bar. Please note that actor settings are stored on the actor itself, so if you modify a non-linked actor the settings are stored on the token itself and won't apply to other tokens of the same actor. You would need to modify the parent actor first and make tokens with it to apply the settings to multiple non-linked tokens.
+  - What this setting does is increase the calculated radius of the tokens, so if you are using funky tokens that need more or less space between the token and the first row of effects you can use this setting.
+  - There is a "global" setting in the settings along with a setting stored on each actor, the actor settings can be accessed by opening the actor sheet you want to modify and clicking on the "magic sparkles" icon in the title bar. Please note that actor settings are stored on the actor itself, so if you modify a non-linked actor the settings are stored on the token itself and won't apply to other tokens of the same actor. You would need to modify the parent actor first and make tokens with it to apply the settings to multiple non-linked tokens.
 
 ## [7.1.0] - 2026-02-01
 
