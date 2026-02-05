@@ -6,8 +6,8 @@ import { createRoundedEffectIcon, updateEffectScales } from "helpers.ts";
 import moduleJson from "../module.json" with { type: "json" };
 
 type ActorConfig = {
-    "effect-scale": number;
-    "global-effect-scale": boolean;
+    effectScale: number;
+    globalEffectScale: boolean;
 };
 
 MODULE.register(moduleJson.id);
@@ -15,39 +15,43 @@ MODULE.register(moduleJson.id);
 const effectCache = new EffectTextureSpritesheet();
 
 Hooks.once("init", () => {
-    game.settings.register(MODULE.id, "effect-background", {
-        name: "Effect Background Color",
+    game.settings.register(MODULE.id, "effectBackground", {
+        name: "PF2eEffectsHalo.Settings.EffectBackground.Name",
+        hint: "PF2eEffectsHalo.Settings.EffectBackground.Hint",
         scope: "user",
         config: true,
         type: new foundry.data.fields.ColorField({ required: true, initial: SYSTEM.isPF2e ? "#d8c384" : "#9edae6" })
     });
 
-    game.settings.register(MODULE.id, "effect-border", {
-        name: "Effect Border Color",
+    game.settings.register(MODULE.id, "effectBorder", {
+        name: "PF2eEffectsHalo.Settings.EffectBorder.Name",
+        hint: "PF2eEffectsHalo.Settings.EffectBorder.Hint",
         scope: "user",
         config: true,
         type: new foundry.data.fields.ColorField({ required: true, initial: SYSTEM.isPF2e ? "#5e0000" : "#1d3c53" })
     });
 
-    game.settings.register(MODULE.id, "effect-spacing", {
-        name: "Effect Spacing",
+    game.settings.register(MODULE.id, "effectSpacing", {
+        name: "PF2eEffectsHalo.Settings.EffectSpacing.Name",
+        hint: "PF2eEffectsHalo.Settings.EffectSpacing.Hint",
         scope: "world",
         config: true,
         requiresReload: true,
         type: new foundry.data.fields.NumberField({ required: true, min: 0, max: 0.5, step: 0.05, initial: 0.1 })
     });
 
-    game.settings.register(MODULE.id, "row-spacing", {
-        name: "Row Spacing",
+    game.settings.register(MODULE.id, "rowSpacing", {
+        name: "PF2eEffectsHalo.Settings.RowSpacing.Name",
+        hint: "PF2eEffectsHalo.Settings.RowSpacing.Hint",
         scope: "world",
         config: true,
         requiresReload: true,
         type: new foundry.data.fields.NumberField({ required: true, min: 0, max: 0.5, step: 0.05, initial: 0.1 })
     });
 
-    game.settings.register(MODULE.id, "effect-scale", {
-        name: "Effect Scale",
-        hint: "Increases the calculated radius of tokens to determine placement of effect icons.",
+    game.settings.register(MODULE.id, "effectScale", {
+        name: "PF2eEffectsHalo.Settings.EffectScale.Name",
+        hint: "PF2eEffectsHalo.Settings.EffectScale.Hint",
         scope: "world",
         config: true,
         requiresReload: true,
@@ -110,16 +114,16 @@ Hooks.on(
                 application.actor.allowedItemTypes.includes("effect"))
         ) {
             buttons.unshift({
-                label: "Effects Halo",
+                label: game.i18n.localize("PF2eEffectsHalo.Actor.HeaderButton.Label"),
                 class: MODULE.id,
                 icon: "fa-solid fa-sparkles",
                 onclick: async () => {
                     const effectScale = foundry.applications.fields.createFormGroup({
-                        label: "Effect Scale",
-                        hint: "Increases the calculated radius of tokens to determine placement of effect icons.",
+                        label: game.i18n.localize("PF2eEffectsHalo.Token.EffectScale.Label"),
+                        hint: game.i18n.localize("PF2eEffectsHalo.Token.EffectScale.Hint"),
                         input: foundry.applications.elements.HTMLRangePickerElement.create({
-                            name: "effect-scale",
-                            value: getFlag<number>(application.actor, "effect-scale") ?? 1,
+                            name: "effectScale",
+                            value: getFlag<number>(application.actor, "effectScale") ?? 1,
                             min: 0.2,
                             max: 3.0,
                             step: 0.05
@@ -127,16 +131,16 @@ Hooks.on(
                     }).outerHTML;
 
                     const globalEffectScale = foundry.applications.fields.createFormGroup({
-                        label: "Global Effect Scale",
-                        hint: "Apply the Effect Scale configured under Settings to this token.",
+                        label: game.i18n.localize("PF2eEffectsHalo.Token.GlobalEffectScale.Label"),
+                        hint: game.i18n.localize("PF2eEffectsHalo.Token.GlobalEffectScale.Hint"),
                         input: foundry.applications.fields.createCheckboxInput({
-                            name: "global-effect-scale",
-                            value: getFlag<boolean>(application.actor, "global-effect-scale") ?? true
+                            name: "globalEffectScale",
+                            value: getFlag<boolean>(application.actor, "globalEffectScale") ?? true
                         })
                     }).outerHTML;
 
                     const actorConfig = await (foundry.applications.api.DialogV2.prompt({
-                        window: { title: `PF2e Effects Halo - ${application.title}` },
+                        window: { title: `${game.i18n.localize("PF2eEffectsHalo.Title")} - ${application.title}` },
                         position: { width: 600 },
                         content: effectScale + globalEffectScale,
                         ok: {

@@ -18,6 +18,13 @@
     "esmodules": [
         "dist/pf2e-effects-halo.js"
     ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
     "relationships": {
         "systems": [
             {

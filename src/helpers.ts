@@ -56,8 +56,8 @@ export function updateEffectScales(token: TokenPF2e) {
 }
 
 function tokenRow(data: TokenInfo, row: number) {
-    const effectSpacing = data.icon.radius * (game.settings.get(MODULE.id, "effect-spacing") as number);
-    const rowSpacing = data.icon.radius * (game.settings.get(MODULE.id, "row-spacing") as number);
+    const effectSpacing = data.icon.radius * (game.settings.get(MODULE.id, "effectSpacing") as number);
+    const rowSpacing = data.icon.radius * (game.settings.get(MODULE.id, "rowSpacing") as number);
     const newIcon = data.icon.expand(effectSpacing);
     const newToken = data.token.expand((2 * row - 1) * data.icon.radius + row * rowSpacing);
     const rowMax = Math.floor(newToken.circumference / (newIcon.radius * 2));
@@ -65,9 +65,9 @@ function tokenRow(data: TokenInfo, row: number) {
 }
 
 function tokenInfo(token: TokenPF2e): TokenInfo {
-    const globalEffectScale = game.settings.get(MODULE.id, "effect-scale") as number;
-    const tokenEffectScale = token.actor ? (getFlag<number>(token.actor, "effect-scale") ?? 1) : 1;
-    const applyGlobalEffectScale = token.actor ? (getFlag<boolean>(token.actor, "global-effect-scale") ?? true) : true;
+    const globalEffectScale = game.settings.get(MODULE.id, "effectScale") as number;
+    const tokenEffectScale = token.actor ? (getFlag<number>(token.actor, "effectScale") ?? 1) : 1;
+    const applyGlobalEffectScale = token.actor ? (getFlag<boolean>(token.actor, "globalEffectScale") ?? true) : true;
 
     const gridSize = token.scene?.grid.size ?? 100;
     const gridSizeX = token.scene?.grid.sizeX ?? 100;
@@ -116,8 +116,8 @@ function tokenInfo(token: TokenPF2e): TokenInfo {
 function createBG(iconSize: number, borderWidth: number) {
     const background = new PIXI.Graphics();
     const r = iconSize / 2;
-    background.lineStyle(borderWidth, game.settings.get(MODULE.id, "effect-border") as Color, 1, 0);
-    background.beginFill(game.settings.get(MODULE.id, "effect-background") as Color);
+    background.lineStyle(borderWidth, game.settings.get(MODULE.id, "effectBorder") as Color, 1, 0);
+    background.beginFill(game.settings.get(MODULE.id, "effectBackground") as Color);
     background.drawCircle(r, r, r);
     background.endFill();
     return background;
