@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.2.2] - 2026-02-05
+
+###
+- Support for flipped tokens
+  - Effects will no longer disappear if you use another module to flip a token
+
 ## [7.2.1] - 2026-02-04
 
 ### Fixed
@@ -54,7 +60,8 @@ Foundry VTT Version 13 Support
 - Removed PF2e Dorako UX, this module is always on when enabled
 - Removed PF2e Dorako UI theme check, this module uses the default
 
-[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.1...HEAD
+[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.2...HEAD
+[7.2.2]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.1...v7.2.2
 [7.2.1]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.0...v7.2.1
 [7.2.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.1.0...v7.2.0
 [7.1.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.0.0...v7.1.0

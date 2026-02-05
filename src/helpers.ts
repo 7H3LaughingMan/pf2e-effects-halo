@@ -1,6 +1,7 @@
 import { EffectTextureSpritesheet } from "effect-texture-spritesheet.ts";
 import { TokenPF2e } from "foundry-pf2e";
 import { getFlag, MODULE } from "foundry-pf2e/utilities";
+import { Circle, Ellipse, Point } from "shapes.ts";
 
 type TokenEffects = PIXI.Container & {
     bg: PIXI.Graphics;
@@ -11,21 +12,12 @@ type TokenInfo = {
     gridSize: number;
     gridSizeX: number;
     gridSizeY: number;
-    iconRadius: number;
-    tokenRadius: number;
-    tokenTileFactor: number;
+    icon: Circle;
+    token: Circle | Ellipse;
+    tokenTileFactor: Point;
 };
 
-function updateIconSize(effectIcon: PIXI.Sprite, size: number) {
-    effectIcon.width = size;
-    effectIcon.height = size;
-}
-
-function polar_to_cartesian(theta: number) {
-    return { x: Math.cos(theta), y: Math.sin(theta) };
-}
-
-function calculateOffsets(i: number, data: TokenInfo) {
+function calculatePoint(i: number, data: TokenInfo) {
     let row = 1;
     let rowData = tokenRow(data, row);
     while (i >= rowData.rowMax) {
@@ -33,19 +25,15 @@ function calculateOffsets(i: number, data: TokenInfo) {
         row += 1;
         rowData = tokenRow(data, row);
     }
-    const ratio = i / rowData.rowMax;
-    const initialRotation = (0.5 + (1 / rowData.rowMax) * Math.PI) * Math.PI;
-    const theta = ratio * 2 * Math.PI + initialRotation;
-    return { offset: rowData.offset, theta };
+    return rowData.token.getPoint(i, rowData.rowMax);
 }
 
 function updateIconPosition(effectIcon: PIXI.DisplayObject, i: number, data: TokenInfo) {
-    const { offset, theta } = calculateOffsets(i, data);
-    const { x, y } = polar_to_cartesian(theta);
+    const { x, y } = calculatePoint(i, data);
     const hexNudgeX = data.gridSizeX > data.gridSizeY ? Math.abs(data.gridSizeX - data.gridSizeY) / 2 : 0;
     const hexNudgeY = data.gridSizeY > data.gridSizeX ? Math.abs(data.gridSizeY - data.gridSizeX) / 2 : 0;
-    effectIcon.position.x = hexNudgeX + ((x * offset + 1) / 2) * data.tokenTileFactor * data.gridSize;
-    effectIcon.position.y = hexNudgeY + ((-1 * y * offset + 1) / 2) * data.tokenTileFactor * data.gridSize;
+    effectIcon.position.x = hexNudgeX + x + (data.tokenTileFactor.x * data.gridSize) / 2;
+    effectIcon.position.y = hexNudgeY + -1 * y + (data.tokenTileFactor.y * data.gridSize) / 2;
 }
 
 export function updateEffectScales(token: TokenPF2e) {
@@ -59,20 +47,21 @@ export function updateEffectScales(token: TokenPF2e) {
         if (!(effectIcon instanceof PIXI.Sprite)) continue;
 
         effectIcon.anchor.set(0.5);
+        effectIcon.width = tokenData.icon.radius * 2;
+        effectIcon.height = tokenData.icon.radius * 2;
 
-        updateIconSize(effectIcon, tokenData.iconRadius * 2);
         updateIconPosition(effectIcon, i, tokenData);
         i++;
     }
 }
 
 function tokenRow(data: TokenInfo, row: number) {
-    const effectSpacing = data.iconRadius * (game.settings.get(MODULE.id, "effect-spacing") as number);
-    const rowSpacing = data.iconRadius * (game.settings.get(MODULE.id, "row-spacing") as number);
-    const tokenRadius = data.tokenRadius + (2 * row - 1) * data.iconRadius + row * rowSpacing;
-    const offset = (tokenRadius * 2) / (data.gridSize * data.tokenTileFactor);
-    const rowMax = Math.floor(Math.PI / Math.asin((data.iconRadius + effectSpacing) / tokenRadius));
-    return { offset, rowMax };
+    const effectSpacing = data.icon.radius * (game.settings.get(MODULE.id, "effect-spacing") as number);
+    const rowSpacing = data.icon.radius * (game.settings.get(MODULE.id, "row-spacing") as number);
+    const newIcon = data.icon.expand(effectSpacing);
+    const newToken = data.token.expand((2 * row - 1) * data.icon.radius + row * rowSpacing);
+    const rowMax = Math.floor(newToken.circumference / (newIcon.radius * 2));
+    return { token: newToken, rowMax };
 }
 
 function tokenInfo(token: TokenPF2e): TokenInfo {
@@ -83,20 +72,32 @@ function tokenInfo(token: TokenPF2e): TokenInfo {
     const gridSize = token.scene?.grid.size ?? 100;
     const gridSizeX = token.scene?.grid.sizeX ?? 100;
     const gridSizeY = token.scene?.grid.sizeY ?? 100;
-    const tokenTileFactor = token.document.width;
+    const tokenTileFactor = { x: token.document.width, y: token.document.height };
 
     const iconSize = gridSize / 5;
     const iconRadius = iconSize / 2;
 
-    let tokenRadius = ((gridSize * tokenTileFactor) / 2) * token.document.texture.scaleX;
-    if (applyGlobalEffectScale) tokenRadius *= globalEffectScale;
-    tokenRadius *= tokenEffectScale;
+    let tokenHalfWidth = ((gridSize * token.document.width) / 2) * Math.abs(token.document.texture.scaleX);
+    let tokenHalfHeight = ((gridSize * token.document.height) / 2) * Math.abs(token.document.texture.scaleY);
+
+    if (applyGlobalEffectScale) {
+        tokenHalfWidth *= globalEffectScale;
+        tokenHalfHeight *= globalEffectScale;
+    }
+
+    tokenHalfWidth *= tokenEffectScale;
+    tokenHalfHeight *= tokenEffectScale;
 
     if (token.hasDynamicRing) {
-        tokenRadius /= token.ring?.scaleCorrection ?? 1;
-        tokenRadius *= token.ring?.textureScaleAdjustment ?? 1;
+        tokenHalfWidth /= token.ring?.scaleCorrection ?? 1;
+        tokenHalfHeight /= token.ring?.scaleCorrection ?? 1;
+
+        tokenHalfWidth *= token.ring?.textureScaleAdjustment ?? 1;
+        tokenHalfHeight *= token.ring?.textureScaleAdjustment ?? 1;
+
         if (!CONFIG.Token.ring.isGridFitMode) {
-            tokenRadius /= token.ring?.subjectScaleAdjustment ?? 1;
+            tokenHalfWidth /= token.ring?.subjectScaleAdjustment ?? 1;
+            tokenHalfHeight /= token.ring?.subjectScaleAdjustment ?? 1;
         }
     }
 
@@ -104,8 +105,10 @@ function tokenInfo(token: TokenPF2e): TokenInfo {
         gridSize,
         gridSizeX,
         gridSizeY,
-        iconRadius,
-        tokenRadius,
+        icon: new Circle(iconRadius),
+        token: tokenHalfWidth.almostEqual(tokenHalfHeight)
+            ? new Circle(tokenHalfWidth)
+            : new Ellipse(tokenHalfWidth, tokenHalfHeight),
         tokenTileFactor
     };
 }
