@@ -1,6 +1,5 @@
 {
     "plugins": ["prettier-plugin-organize-imports"],
-    "proseWrap": "always",
     "printWidth": 120,
     "endOfLine": "lf",
     "tabWidth": 4,

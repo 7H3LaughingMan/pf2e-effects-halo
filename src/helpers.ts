@@ -78,8 +78,8 @@ function tokenInfo(token: TokenPF2e): TokenInfo {
     tokenHalfHeight *= tokenHaloRadius;
 
     if (token.hasDynamicRing) {
-        tokenHalfWidth *= token.document.texture.scaleX;
-        tokenHalfHeight *= token.document.texture.scaleY;
+        tokenHalfWidth *= Math.abs(token.document.texture.scaleX);
+        tokenHalfHeight *= Math.abs(token.document.texture.scaleY);
 
         tokenHalfWidth /= token.ring?.scaleCorrection ?? 1;
         tokenHalfHeight /= token.ring?.scaleCorrection ?? 1;
@@ -93,8 +93,8 @@ function tokenInfo(token: TokenPF2e): TokenInfo {
         }
     } else {
         if (token.document.flags[SYSTEM.id].autoscale) {
-            tokenHalfWidth *= token.document.texture.scaleX;
-            tokenHalfHeight *= token.document.texture.scaleY;
+            tokenHalfWidth *= Math.abs(token.document.texture.scaleX);
+            tokenHalfHeight *= Math.abs(token.document.texture.scaleY);
         }
     }
 
