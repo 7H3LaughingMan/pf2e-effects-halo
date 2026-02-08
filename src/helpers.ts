@@ -1,8 +1,7 @@
 import { EffectTextureSpritesheet } from "effect-texture-spritesheet.ts";
 import { TokenPF2e } from "foundry-pf2e";
-import { Point } from "foundry-pf2e/foundry/common/_types.mjs";
 import { addPoint, getFlag, MODULE, subtractPoint, SYSTEM } from "foundry-pf2e/utilities";
-import { Circle, Ellipse } from "shapes.ts";
+import { Circle, Ellipse, Point } from "shapes.ts";
 
 type TokenEffects = PIXI.Container & {
     bg: PIXI.Graphics;
@@ -52,7 +51,7 @@ function tokenRow(data: TokenInfo, row: number) {
     const newIcon = data.icon.expand(effectSpacing);
     const newToken = data.token.expand((2 * row - 1) * data.icon.radius + row * rowSpacing);
     const rowMax = Math.floor(newToken.circumference / (newIcon.radius * 2));
-    return { token: newToken, rowMax };
+    return { token: newToken, rowMax: rowMax > 0 ? rowMax : 1 };
 }
 
 function tokenInfo(token: TokenPF2e): TokenInfo {

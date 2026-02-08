@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [7.3.2] - 2026-02-08
+
+### Changed
+
+- Increased Effect Sprite Size from 96 to 128, no more unused space on spritesheets
+- Rows now have a minimum of 1 effect, wasn't really a problem but will prevent an infinite loop if the calculated radius for effects is to small to fit any effects
+- Circles/Ellipses will now use the absolute value for their radius or half widths/heights, shouldn't normally be a problem but might as well to prevent possible issues
+- When calculating the circumference of an Ellipse it will return 0 if the calculations would not be a finite number, really only an issue if one of the half width/height is 0 which shouldn't normally be possible
+
 ## [7.3.1] - 2026-02-08
 
 ### Fixed
@@ -81,7 +90,8 @@ Foundry VTT Version 13 Support
 - Removed PF2e Dorako UX, this module is always on when enabled
 - Removed PF2e Dorako UI theme check, this module uses the default
 
-[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.1...HEAD
+[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.2...HEAD
+[7.3.2]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.1...v7.3.2
 [7.3.1]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.0...v7.3.1
 [7.3.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.3...v7.3.0
 [7.2.3]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.2...v7.2.3

@@ -1,5 +1,5 @@
 export class EffectTextureSpritesheet {
-    static #spriteSize = 96;
+    static #spriteSize = 128;
     static #baseTextureSize = 2048;
     static #maxMemberCount = Math.pow(this.#baseTextureSize / this.#spriteSize, 2);
 
@@ -55,7 +55,7 @@ export class EffectTextureSpritesheet {
         return renderTexture;
     }
 
-    loadTexture(path: string): PIXI.RenderTexture | undefined {
+    getFromCache(path: string): PIXI.RenderTexture | undefined {
         return this.#textureCache.get(path);
     }
 }

@@ -1,4 +1,7 @@
-import { Point } from "foundry-pf2e/foundry/common/_types.mjs";
+export interface Point {
+    x: number;
+    y: number;
+}
 
 export class Circle {
     public radius: number;
@@ -8,7 +11,7 @@ export class Circle {
     }
 
     constructor(radius = 0) {
-        this.radius = radius;
+        this.radius = Math.abs(radius);
     }
 
     clone(): Circle {
@@ -36,18 +39,16 @@ export class Ellipse {
     public halfHeight: number;
 
     public get circumference(): number {
-        if (this.halfWidth <= 0 || this.halfHeight <= 0)
-            throw new Error("halfWidth and halfHeight must be positive numbers.");
-
         const [a, b] =
             this.halfWidth < this.halfHeight ? [this.halfHeight, this.halfWidth] : [this.halfWidth, this.halfHeight];
         const h = Math.pow(a - b, 2) / Math.pow(a + b, 2);
-        return Math.PI * (a + b) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
+        const circumference = Math.PI * (a + b) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)));
+        return Number.isFinite(circumference) ? circumference : 0;
     }
 
     constructor(halfWidth = 0, halfHeight = 0) {
-        this.halfWidth = halfWidth;
-        this.halfHeight = halfHeight;
+        this.halfWidth = Math.abs(halfWidth);
+        this.halfHeight = Math.abs(halfHeight);
     }
 
     clone(): Ellipse {

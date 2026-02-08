@@ -88,7 +88,7 @@ Hooks.once("ready", () => {
 
             const fallbackEffectIcon = "icons/svg/hazard.svg";
             const effectTextureCacheKey = src || fallbackEffectIcon;
-            let effectTexture = effectCache.loadTexture(effectTextureCacheKey);
+            let effectTexture = effectCache.getFromCache(effectTextureCacheKey);
             let icon: PIXI.Sprite;
 
             if (effectTexture) {
