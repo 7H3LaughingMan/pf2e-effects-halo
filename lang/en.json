@@ -23,19 +23,19 @@
                 "Name": "Row Spacing",
                 "Hint": "The spacing between rows."
             },
-            "EffectScale": {
-                "Name": "Effect Scale",
-                "Hint": "Increases the calculated radius of tokens to determine placement of effect icons."
+            "HaloRadius": {
+                "Name": "Halo Radius",
+                "Hint": "Multiplies the radius of the halo around tokens to determine placement of effect icons."
             }
         },
         "Token": {
-            "EffectScale": {
-                "Label": "Effect Scale",
-                "Hint": "Increases the calculated radius of tokens to determine placement of effect icons."
+            "HaloRadius": {
+                "Label": "Halo Radius",
+                "Hint": "Multiplies the radius of the halo around tokens to determine placement of effect icons."
             },
-            "GlobalEffectScale": {
-                "Label": "Global Effect Scale",
-                "Hint": "Apply the Effect Scale configured under Settings to this token."
+            "ApplyGlobal": {
+                "Label": "Apply Global Halo Radius",
+                "Hint": "Apply the Halo Radius configured under Settings to this token."
             }
         }
     }

@@ -49,9 +49,9 @@ Hooks.once("init", () => {
         type: new foundry.data.fields.NumberField({ required: true, min: 0, max: 0.5, step: 0.05, initial: 0.1 })
     });
 
-    game.settings.register(MODULE.id, "effectScale", {
-        name: "PF2eEffectsHalo.Settings.EffectScale.Name",
-        hint: "PF2eEffectsHalo.Settings.EffectScale.Hint",
+    game.settings.register(MODULE.id, "haloRadius", {
+        name: "PF2eEffectsHalo.Settings.HaloRadius.Name",
+        hint: "PF2eEffectsHalo.Settings.HaloRadius.Hint",
         scope: "world",
         config: true,
         requiresReload: true,
@@ -60,12 +60,20 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", () => {
-    foundry.canvas.placeables.Token.RENDER_FLAGS.refreshMesh.propagate.push("refreshEffects");
-
     libWrapper.register<TokenPF2e, TokenPF2e["_refreshEffects"]>(
         MODULE.id,
         "foundry.canvas.placeables.Token.prototype._refreshEffects",
         function (this: TokenPF2e, wrapped: foundry.canvas.placeables.Token["_refreshEffects"]) {
+            wrapped();
+            updateEffectScales(this);
+        },
+        "WRAPPER"
+    );
+
+    libWrapper.register<TokenPF2e, TokenPF2e["_refreshSize"]>(
+        MODULE.id,
+        "foundry.canvas.placeables.Token.prototype._refreshSize",
+        function (this: TokenPF2e, wrapped: foundry.canvas.placeables.Token["_refreshSize"]) {
             wrapped();
             updateEffectScales(this);
         },
@@ -118,31 +126,31 @@ Hooks.on(
                 class: MODULE.id,
                 icon: "fa-solid fa-sparkles",
                 onclick: async () => {
-                    const effectScale = foundry.applications.fields.createFormGroup({
-                        label: game.i18n.localize("PF2eEffectsHalo.Token.EffectScale.Label"),
-                        hint: game.i18n.localize("PF2eEffectsHalo.Token.EffectScale.Hint"),
+                    const haloRadius = foundry.applications.fields.createFormGroup({
+                        label: game.i18n.localize("PF2eEffectsHalo.Token.HaloRadius.Label"),
+                        hint: game.i18n.localize("PF2eEffectsHalo.Token.HaloRadius.Hint"),
                         input: foundry.applications.elements.HTMLRangePickerElement.create({
-                            name: "effectScale",
-                            value: getFlag<number>(application.actor, "effectScale") ?? 1,
+                            name: "haloRadius",
+                            value: getFlag<number>(application.actor, "haloRadius") ?? 1,
                             min: 0.2,
                             max: 3.0,
                             step: 0.05
                         })
                     }).outerHTML;
 
-                    const globalEffectScale = foundry.applications.fields.createFormGroup({
-                        label: game.i18n.localize("PF2eEffectsHalo.Token.GlobalEffectScale.Label"),
-                        hint: game.i18n.localize("PF2eEffectsHalo.Token.GlobalEffectScale.Hint"),
+                    const applyGlobal = foundry.applications.fields.createFormGroup({
+                        label: game.i18n.localize("PF2eEffectsHalo.Token.ApplyGlobal.Label"),
+                        hint: game.i18n.localize("PF2eEffectsHalo.Token.ApplyGlobal.Hint"),
                         input: foundry.applications.fields.createCheckboxInput({
-                            name: "globalEffectScale",
-                            value: getFlag<boolean>(application.actor, "globalEffectScale") ?? true
+                            name: "applyGlobal",
+                            value: getFlag<boolean>(application.actor, "applyGlobal") ?? true
                         })
                     }).outerHTML;
 
                     const actorConfig = await (foundry.applications.api.DialogV2.prompt({
                         window: { title: `${game.i18n.localize("PF2eEffectsHalo.Title")} - ${application.title}` },
-                        position: { width: 600 },
-                        content: effectScale + globalEffectScale,
+                        position: { width: "auto" },
+                        content: haloRadius + applyGlobal,
                         ok: {
                             icon: "fa-solid fa-floppy-disk",
                             label: game.i18n.format("DOCUMENT.Update", {

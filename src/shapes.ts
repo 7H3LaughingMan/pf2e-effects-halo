@@ -1,20 +1,7 @@
-export interface Point {
-    x: number;
-    y: number;
-}
-
-enum SHAPES {
-    POLY = 0,
-    RECT = 1,
-    CIRC = 2,
-    ELIP = 3,
-    RREC = 4
-}
+import { Point } from "foundry-pf2e/foundry/common/_types.mjs";
 
 export class Circle {
     public radius: number;
-
-    public readonly type: SHAPES.CIRC;
 
     public get circumference(): number {
         return 2 * Math.PI * this.radius;
@@ -22,7 +9,6 @@ export class Circle {
 
     constructor(radius = 0) {
         this.radius = radius;
-        this.type = SHAPES.CIRC;
     }
 
     clone(): Circle {
@@ -36,7 +22,7 @@ export class Circle {
     getPoint(i: number, max: number): Point {
         const ratio = i / max;
         const initialRotation = (0.5 + (1 / max) * Math.PI) * Math.PI;
-        const theta = ratio * 2 * Math.PI + initialRotation;
+        const theta = -ratio * 2 * Math.PI - initialRotation;
         return {
             x: this.radius * Math.cos(theta),
             y: this.radius * Math.sin(theta)
@@ -48,8 +34,6 @@ export class Ellipse {
     public halfWidth: number;
 
     public halfHeight: number;
-
-    public readonly type: SHAPES.ELIP;
 
     public get circumference(): number {
         if (this.halfWidth <= 0 || this.halfHeight <= 0)
@@ -64,7 +48,6 @@ export class Ellipse {
     constructor(halfWidth = 0, halfHeight = 0) {
         this.halfWidth = halfWidth;
         this.halfHeight = halfHeight;
-        this.type = SHAPES.ELIP;
     }
 
     clone(): Ellipse {
@@ -78,7 +61,7 @@ export class Ellipse {
     getPoint(i: number, max: number): Point {
         const ratio = i / max;
         const initialRotation = (0.5 + (1 / max) * Math.PI) * Math.PI;
-        const theta = ratio * 2 * Math.PI + initialRotation;
+        const theta = -ratio * 2 * Math.PI - initialRotation;
         return {
             x: this.halfWidth * Math.cos(theta),
             y: this.halfHeight * Math.sin(theta)
