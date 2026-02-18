@@ -1,0 +1,42 @@
+{
+    "PF2eEffectsHalo": {
+        "Title": "PF2e 效果光圈",
+        "Actor": {
+            "HeaderButton": {
+                "Label": "效果光圈"
+            }
+        },
+        "Settings": {
+            "EffectBackground": {
+                "Name": "效果背景颜色",
+                "Hint": "由用户自定义的，应用于效果图标的背景颜色。"
+            },
+            "EffectBorder": {
+                "Name": "效果边框颜色",
+                "Hint": "由用户自定义的，应用于效果图标的边框颜色。"
+            },
+            "EffectSpacing": {
+                "Name": "效果间距",
+                "Hint": "同一圈内效果图标的间距。"
+            },
+            "RowSpacing": {
+                "Name": "光圈间距",
+                "Hint": "不同光圈之间的间距。"
+            },
+            "HaloRadius": {
+                "Name": "光圈半径",
+                "Hint": "指示物周围光圈的半径所乘系数，以此确定效果图标的位置。"
+            }
+        },
+        "Token": {
+            "HaloRadius": {
+                "Label": "光圈半径",
+                "Hint": "指示物周围光圈的半径所乘系数，以此确定效果图标的位置。"
+            },
+            "ApplyGlobal": {
+                "Hint": "将配置设定中的光圈半径应用至该指示物。",
+                "Label": "应用全局光圈半径"
+            }
+        }
+    }
+}
