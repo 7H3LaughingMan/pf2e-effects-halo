@@ -2,11 +2,11 @@
     "id": "pf2e-effects-halo",
     "title": "PF2e Effects Halo",
     "description": "This module arranges effect icons around a token, rather than putting them in columns on the token. Copied from PF2e Dorako UX.",
-    "version": "7.1.0",
+    "version": "8.0.0",
     "compatibility": {
         "minimum": "13",
-        "verified": "13",
-        "maximum": "13"
+        "verified": "14",
+        "maximum": "14"
     },
     "authors": [
         {
@@ -15,9 +15,7 @@
             "url": "https://github.com/7H3LaughingMan"
         }
     ],
-    "esmodules": [
-        "dist/pf2e-effects-halo.js"
-    ],
+    "esmodules": ["dist/pf2e-effects-halo.js"],
     "languages": [
         {
             "lang": "en",
@@ -44,8 +42,8 @@
         ]
     },
     "url": "https://github.com/7H3LaughingMan/pf2e-effects-halo",
-    "manifest": "https://github.com/7H3LaughingMan/pf2e-effects-halo/raw/main/module.json",
-    "download": "https://github.com/7H3LaughingMan/pf2e-effects-halo/archive/refs/heads/main.zip",
+    "manifest": "",
+    "download": "",
     "license": "https://github.com/7H3LaughingMan/pf2e-effects-halo/blob/main/LICENSE",
     "readme": "https://github.com/7H3LaughingMan/pf2e-effects-halo/blob/main/README.md",
     "bugs": "https://github.com/7H3LaughingMan/pf2e-effects-halo/issues",

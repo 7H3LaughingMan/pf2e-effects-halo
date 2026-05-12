@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [8.0.0] - 2026-05-12
+
+Initial v14 Update
+
 ## [7.3.2] - 2026-02-08
 
 ### Changed
@@ -90,7 +94,8 @@ Foundry VTT Version 13 Support
 - Removed PF2e Dorako UX, this module is always on when enabled
 - Removed PF2e Dorako UI theme check, this module uses the default
 
-[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.2...HEAD
+[Unreleased]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v8.0.0...HEAD
+[8.0.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.2...v8.0.0
 [7.3.2]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.1...v7.3.2
 [7.3.1]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.3.0...v7.3.1
 [7.3.0]: https://github.com/7H3LaughingMan/pf2e-effects-halo/compare/v7.2.3...v7.3.0
