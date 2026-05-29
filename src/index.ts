@@ -59,7 +59,7 @@ Hooks.once("init", () => {
     });
 });
 
-Hooks.once("ready", () => {
+Hooks.once("setup", () => {
     libWrapper.register<TokenPF2e, TokenPF2e["_refreshEffects"]>(
         MODULE.id,
         "foundry.canvas.placeables.Token.prototype._refreshEffects",
